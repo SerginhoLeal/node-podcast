@@ -1,14 +1,16 @@
 import { Request, Response } from 'express'
 import Home from './Home'
+import aws from 'aws-sdk'
+
+const s3 = new aws.S3()
 
 export class HomeController {
   async index (req:Request, res:Response): Promise<Response> {
     const docs = await Home.find().sort({ createAt: -1 })
-
     return res.json({ docs })
   }
 
-  async create (req:Request, res:Response) {
+  async create (req:any, res:Response): Promise<Response> {
     const { artist, title, category } = req.body
     const docs = await Home.find()
     try {
@@ -24,7 +26,20 @@ export class HomeController {
       })
       return res.json({ create })
     } catch (error) {
+      if (process.env.STORAGE_TYPE === 's3') {
+        s3.deleteObject({
+          Bucket: 'azdq8fpodcast',
+          Key: req.file.key
+        }).promise()
+      }
       return res.json({ error })
     }
+  }
+
+  async delete (req:Request, res:Response): Promise<Response> {
+    const removeVideo = await Home.findById(req.params.id)
+    await removeVideo.remove()
+
+    return res.json({ removido: true })
   }
 }

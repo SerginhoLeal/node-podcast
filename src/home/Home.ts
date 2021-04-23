@@ -29,7 +29,7 @@ const HomeSchema = new Schema({
   },
   creator: {
     type: Schema.Types.ObjectId,
-    ref: 'Auth',
+    ref: 'Creator',
     require: true
   },
   category: {
@@ -66,7 +66,7 @@ HomeSchema.pre<IHome>('save', function() {
 HomeSchema.pre<IHome>('remove', function() {
   if (process.env.STORAGE_TYPE === 's3') {
     return s3.deleteObject({
-      Bucket: 'azdq8fpodcast',
+      Bucket: process.env.BUCKET,
       Key: this.key
     }).promise()
   } else {
