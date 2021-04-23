@@ -8,7 +8,7 @@ import { HomeController } from './home/HomeController'
 
 import authMiddleware from './middleware/auth'
 
-const multerConfig = require('./config/multer')
+import multerConfig from './config/multer'
 
 const routes = Router()
 
@@ -26,14 +26,11 @@ routes.use(authMiddleware)
 
 routes.get('/F284GTPNvkBpFMnfJMLYKc6', homeController.index)
 routes.post('/G5LVZPtpBKC4yYSKWbeymH5', multer(multerConfig).single('file'), homeController.create)
+routes.delete('/YWy83Ts2aRgGseQquE969Nr/:id', homeController.delete)
 
 export { routes }
 
-/*
-
-routes.delete('/YWy83Ts2aRgGseQquE969Nr/:id', HomeController.delete)
-routes.get('/Gn4KWPy3ycBxWAvpMWfaEDP', HomeController.search)
-
-routes.post('/u7hSbR6NtMdsu22gjR8pdNc', PlayController.index)
-
+/**
+* @routes routes.get('/Gn4KWPy3ycBxWAvpMWfaEDP', HomeController.search)
+* @rotues routes.post('/u7hSbR6NtMdsu22gjR8pdNc', PlayController.index)
 */
