@@ -23,9 +23,9 @@ class CreatorController {
     try {
       const Auth = await Creators.findOne({ nickname }).select('+password')
 
-      if (!Auth) return res.status(400).send({ error: 'fail' })
+      if (!Auth) return res.status(400).send({ inexistente: true })
 
-      if (!await bcrypt.compare(password, Auth.password)) return res.status(400).send({ error: 'fail' })
+      if (!await bcrypt.compare(password, Auth.password)) return res.status(400).send({ inexistente: true })
 
       Auth.password = undefined
 
