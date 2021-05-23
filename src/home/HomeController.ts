@@ -3,11 +3,16 @@ import Home from './Home'
 import aws from 'aws-sdk'
 
 const s3 = new aws.S3()
-
 export class HomeController {
-  async index (req:Request, res:Response): Promise<Response> {
-    const docs = await Home.find().sort({ createAt: -1 })
-    return res.json({ docs })
+  async index (req:any, res:Response): Promise<Response> {
+    const { _limit } = req.headers
+    const docs = await Home.find().sort({ createAt: -1 }).limit(Number(_limit))
+    return res.json(docs)
+  }
+
+  async search (req:Request, res:Response): Promise<Response> {
+    const docs = await Home.findById(req.params.id)
+    return res.json(docs)
   }
 
   async create (req:any, res:Response): Promise<Response> {
