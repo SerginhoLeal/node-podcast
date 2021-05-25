@@ -16,12 +16,9 @@ export default (req: any, res:Response, next:NextFunction) => {
   if (!/^Bearer$/i.test(scheme)) return res.status(401).send({ error: 'Token malformatted' })
 
   jwt.verify(token, authConfig, (err, decoded) => {
-    console.log()
     if (err) return res.status(401).send({ inspired_session: 'Token invalided' })
 
     req.userId = decoded.id
-
-    console.log(req.userId)
 
     return next()
   })

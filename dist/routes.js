@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routes = void 0;
+const express_1 = require("express");
+const multer_1 = __importDefault(require("multer"));
+const CreatorsControllers_1 = require("./authentication/Creators/CreatorsControllers");
+const ListenerController_1 = require("./authentication/Listener/ListenerController");
+const HomeController_1 = require("./home/HomeController");
+const auth_1 = __importDefault(require("./middleware/auth"));
+const multer_2 = __importDefault(require("./config/multer"));
+const routes = express_1.Router();
+exports.routes = routes;
+const creatorController = new CreatorsControllers_1.CreatorController();
+const listenerController = new ListenerController_1.ListenerController();
+const homeController = new HomeController_1.HomeController();
+routes.post('/hmXyeYM3ZqcwspFqV92Y2Xv', creatorController.login);
+routes.post('/25h82FCWbLtFxKyLQeeRm4Q', creatorController.create);
+routes.post('/JqYN5FuDT2yKLfsq6HhZXMc', listenerController.login);
+routes.post('/ca2JyGhn7bfJW9urqfxKzVb', listenerController.create);
+routes.use(auth_1.default);
+routes.get('/F284GTPNvkBpFMnfJMLYKc6', homeController.index);
+routes.get('/GTPkF284nfJMLYKc6NvBpFM/:id', homeController.search);
+routes.post('/G5LVZPtpBKC4yYSKWbeymH5', multer_1.default(multer_2.default).single('file'), homeController.create);
+routes.delete('/YWy83Ts2aRgGseQquE969Nr/:id', homeController.delete);
