@@ -25,8 +25,11 @@ export class HomeController {
         creator: req.userId,
         key: req.file.key,
         category,
-        artwork: 'xxx',
-        url: req.file.location,
+        file: {
+          artwork: 'https://azdq8fpodcast.s3-sa-east-1.amazonaws.com/5754de25927faf19c48d4eea3e1fdb13-bad-liar.jpg',
+          url: req.file.location,
+          time: 3654
+        },
         id: docs.length + 1
       })
       return res.json({ create })

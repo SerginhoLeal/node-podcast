@@ -37,13 +37,19 @@ const HomeSchema = new Schema({
     require: true
   },
   key: String,
-  artwork: {
-    type: String,
-    require: true
-  },
-  url: {
-    type: String,
-    require: true
+  file: {
+    artwork: {
+      type: String,
+      require: true
+    },
+    url: {
+      type: String,
+      require: true
+    },
+    time: {
+      type: Number,
+      require: true
+    }
   },
   id: {
     type: String,
@@ -55,15 +61,13 @@ const HomeSchema = new Schema({
   timestamps: true
 })
 
-// eslint-disable-next-line space-before-function-paren
-HomeSchema.pre<IHome>('save', function() {
+HomeSchema.pre<IHome>('save', function () {
   if (!this.url) {
     this.url = `${process.env.APP_URL}/files/${this.key}`
   }
 })
 
-// eslint-disable-next-line space-before-function-paren
-HomeSchema.pre<IHome>('remove', function() {
+HomeSchema.pre<IHome>('remove', function () {
   if (process.env.STORAGE_TYPE === 's3') {
     return s3.deleteObject({
       Bucket: process.env.BUCKET,
