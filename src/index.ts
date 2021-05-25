@@ -1,9 +1,7 @@
+import express from 'express'
+import mongoose from 'mongoose'
 require('dotenv').config()
 
-// eslint-disable-next-line import/first
-import express from 'express'
-// eslint-disable-next-line import/first
-import mongoose from 'mongoose'
 // eslint-disable-next-line import/first
 import { routes } from './routes'
 
