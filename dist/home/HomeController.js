@@ -28,7 +28,7 @@ class HomeController {
                 key: req.file.key,
                 category,
                 file: {
-                    artwork: 'https://azdq8fpodcast.s3-sa-east-1.amazonaws.com/5754de25927faf19c48d4eea3e1fdb13-bad-liar.jpg',
+                    artwork: 'xxx',
                     url: req.file.location,
                     time: 3654
                 },

@@ -1,0 +1,1 @@
+Para gerar o build desse projeto: yarn tsc
